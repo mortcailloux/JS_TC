@@ -1,3 +1,4 @@
+import { askQuestion } from './selection_mot_mystere.mjs';
 const readline = require('readline');
 
 const rl = readline.createInterface({
@@ -6,38 +7,36 @@ const rl = readline.createInterface({
 });
 
 // Fonction pour poser une question et attendre la réponse
-function askQuestion(question) {
-    return new Promise((resolve) => {
-        rl.question(question + " ", (answer) => {
-            resolve(answer);
-        });
-    });
-}
+
+
+//le jeu est strucuté en 4 grosses étapes, il faut faire une fonction principale pour chaque étape
+//on récupérera les fonctions dans les fichiers correspondants
+
+
+
+
 
 // Fonction principale
 async function main() {
-    const nom = await askQuestion("Quel est le nom du joueur 1 ?");
-    const nom2 = await askQuestion("Quel est le nom du joueur 2 ?");
-    const nom3 = await askQuestion("Quel est le nom du joueur 3 ?");
+    noms=[]
+    for (let i=0; i<5;i++){
+        nom=await askQuestion(`Quel est le nom du joueur ${i+1} ?`) //f string ici
+        noms.push(nom)
 
-    const nom4 = await askQuestion("Quel est le nom du joueur 4 ?");
-
-    const nom5 = await askQuestion("Quel est le nom du joueur 5 ?");
-
-
-    afficherBienvenue(nom);
-    afficherAgeEtVille(age, ville);
+    }
+    
+    float_aleatoire=Math.random()*5 //nombre aléatoire entre 0 et 5
+    console.log('float aleatoire: %d', float_aleatoire )
+    int_aleatoire=Math.floor(float_aleatoire) //fonction floor des maths, renvoie le plus grand entier inférieur
+    console.log("int aleatoire %d",int_aleatoire)
+    nom_tire=noms[int_aleatoire]
+    console.log("%s est le nom choisi",nom_tire)
+    //selection du mot mystère
+    
 
     rl.close();
 }
 
-function afficherBienvenue(nom) {
-    console.log(`Bienvenue, ${nom} !`);
-}
-
-function afficherAgeEtVille(age, ville) {
-    console.log(`Vous avez ${age} ans et vous habitez à ${ville}.`);
-}
 
 // Lancer le programme
 main();
