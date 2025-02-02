@@ -1,5 +1,5 @@
 
-import fs from "fs"
+import fs from "fs/promises"
 
 export function askQuestion(question) {
     return new Promise((resolve) => {
@@ -11,8 +11,17 @@ export function askQuestion(question) {
 
 async function mot_aleatoires(){
 //il faut lire depuis un fichier
-    data= await fs.readFile("liste.de.mots.francais.frgut.txt",'utf8')
-    donnees=data.split("\n")
+    const data= await fs.readFile("pli07.txt",'utf8') //sans le const ça fonctionnait pas
+    const donnees=data.split("\n")
+
+    const retour=[]
+    for (let i=0; i<5;i++){
+        let int_aleatoire=Math.floor(Math.random()*donnees.length)
+        let mot=donnees[int_aleatoire]
+        retour.push(mot)
+    }
+    return retour
+
 
 }
 
@@ -21,3 +30,5 @@ function choisit_nombre(){
 
 
 }
+
+console.log(await mot_aleatoires())
