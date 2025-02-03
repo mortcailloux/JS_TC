@@ -1,4 +1,7 @@
 import { askQuestion } from './selection_mot_mystere.mjs';
+import { demander_indices } from './choix_des_indices.mjs';
+import { reponse } from './reponse.mjs';
+
 const readline = require('readline');
 
 const rl = readline.createInterface({
@@ -32,7 +35,10 @@ async function main() {
     nom_tire=noms[int_aleatoire]
     console.log("%s est le nom choisi",nom_tire)
     //selection du mot mystère
-    
+    let indices= await demander_indices("abeille",int_aleatoire);
+    console.log(indices);
+    rep = await reponse(indices,int_aleatoire);
+    console.log(rep);
 
     rl.close();
 }
