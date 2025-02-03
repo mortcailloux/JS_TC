@@ -1,14 +1,20 @@
-import { askQuestion } from './selection_mot_mystere.mjs';
 import { demander_indices } from './choix_des_indices.mjs';
 import { reponse } from './reponse.mjs';
-
-const readline = require('readline');
+import readline from 'readline';
 
 const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+        input: process.stdin,
+        output: process.stdout
+    });
 
+export function askQuestion(question) {
+    
+    return new Promise((resolve) => {
+        rl.question(question + " ", (answer) => {
+            resolve(answer);
+        });
+    });
+}
 // Fonction pour poser une question et attendre la réponse
 
 
@@ -21,23 +27,23 @@ const rl = readline.createInterface({
 
 // Fonction principale
 async function main() {
-    noms=[]
+    let noms=[]
     for (let i=0; i<5;i++){
-        nom=await askQuestion(`Quel est le nom du joueur ${i+1} ?`) //f string ici
+        let nom=await askQuestion(`Quel est le nom du joueur ${i+1} ?`) //f string ici
         noms.push(nom)
 
     }
     
-    float_aleatoire=Math.random()*5 //nombre aléatoire entre 0 et 5
+    let float_aleatoire=Math.random()*5 //nombre aléatoire entre 0 et 5
     console.log('float aleatoire: %d', float_aleatoire )
-    int_aleatoire=Math.floor(float_aleatoire) //fonction floor des maths, renvoie le plus grand entier inférieur
+    let int_aleatoire=Math.floor(float_aleatoire) //fonction floor des maths, renvoie le plus grand entier inférieur
     console.log("int aleatoire %d",int_aleatoire)
-    nom_tire=noms[int_aleatoire]
+    let nom_tire=noms[int_aleatoire]
     console.log("%s est le nom choisi",nom_tire)
     //selection du mot mystère
-    let indices= await demander_indices("abeille",int_aleatoire);
+    let indices= await demander_indices("abeille",int_aleatoire,noms);
     console.log(indices);
-    rep = await reponse(indices,int_aleatoire);
+    rep = await reponse(indices,int_aleatoire,noms);
     console.log(rep);
 
     rl.close();
