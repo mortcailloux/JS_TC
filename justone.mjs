@@ -26,7 +26,22 @@ export function askQuestion(question) {
 //on récupérera les fonctions dans les fichiers correspondants
 
 
-
+async function tour() {
+    let nom_tire=noms[i_joueur_actif=Math.floor(float_aleatoire)] //fonction floor des maths, renvoie le plus grand entier inférieur
+    console.log("%s est le nom choisi",nom_tire)
+    //selection du mot mystère
+    let mot=await selection(i_joueur_actif,noms[i_joueur_actif]);
+    let indices= supprime_doublons(await demander_indices(mot,int_aleatoire,noms));
+    let rep = (await reponse(indices,int_aleatoire,noms)).toLowerCase();
+    if (rep===mot){
+        console.log("Bravo t'es trop fort(e)!");
+        return 1;
+    }
+    else{
+        console.log("C'etait pas ca non...");
+        return 0;
+    }
+}
 
 
 // Fonction principale
@@ -40,21 +55,8 @@ async function main() {
     let float_aleatoire=Math.random()*nb_joueurs //nombre aléatoire entre 0 et 5
     console.log('float aleatoire: %d', float_aleatoire )
     let i_joueur_actif=Math.floor(float_aleatoire) //fonction floor des maths, renvoie le plus grand entier inférieur
-    console.log("int aleatoire %d",     i_joueur_actif=Math.floor(float_aleatoire) //fonction floor des maths, renvoie le plus grand entier inférieur
-)
-    let nom_tire=noms[     i_joueur_actif=Math.floor(float_aleatoire) //fonction floor des maths, renvoie le plus grand entier inférieur
-    ]
-    console.log("%s est le nom choisi",nom_tire)
-    //selection du mot mystère
-    let mot=await selection(i_joueur_actif,noms[i_joueur_actif]);
-    let indices= supprime_doublons(await demander_indices(mot,int_aleatoire,noms));
-    let rep = (await reponse(indices,int_aleatoire,noms)).toLowerCase();
-    if (rep===mot){
-        console.log("Bravo t'es trop fort(e)!");
-    }
-    else{
-        console.log("C'etait pas ca non...");
-    }
+    console.log("int aleatoire %d",i_joueur_actif=Math.floor(float_aleatoire)) //fonction floor des maths, renvoie le plus grand entier inférieur
+    score+=tour();
 
     rl.close();
 }
