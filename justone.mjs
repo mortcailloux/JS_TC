@@ -46,7 +46,7 @@ async function main() {
     ]
     console.log("%s est le nom choisi",nom_tire)
     //selection du mot mystère
-    let mot=await selection(i_joueur_actif,noms[i_joueur_actif]);
+    let mot=await selection(i_joueur_actif,noms);
     let indices= supprime_doublons(await demander_indices(mot,int_aleatoire,noms));
     let rep = (await reponse(indices,int_aleatoire,noms)).toLowerCase();
     if (rep===mot){

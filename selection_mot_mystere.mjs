@@ -67,7 +67,7 @@ export async function selection(i_joueur_actif,noms) {
     let mot_choisi
     let nom
     while (!joueur_contents){
-        mot_choisi=await joueur_actif_choisit_nombre(carte,noms)
+        mot_choisi=await joueur_actif_choisit_nombre(carte,noms[i_joueur_actif])
         //chaque joueur va dire s'il connait le mot
         joueur_contents=true
         for (let i=0;i<5;i++){
