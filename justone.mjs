@@ -42,8 +42,7 @@ async function main() {
     console.log("%s est le nom choisi",nom_tire)
     //selection du mot mystère
     let indices= await demander_indices("abeille",int_aleatoire,noms);
-    console.log(indices);
-    rep = await reponse(indices,int_aleatoire,noms);
+    let rep = await reponse(indices,int_aleatoire,noms);
     console.log(rep);
 
     rl.close();
