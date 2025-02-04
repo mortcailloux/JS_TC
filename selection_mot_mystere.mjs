@@ -1,13 +1,6 @@
 
 import fs from "fs/promises"
 
-export function askQuestion(question) {
-    return new Promise((resolve) => {
-        rl.question(question + " ", (answer) => {
-            resolve(answer);
-        });
-    });
-}
 /**
  * Il faut absolument qu'on ait un compteur de carte à l'extérieur de la fonction pour ne pas générer trop de cartes
  * @returns liste de 5 mots générés pour la carte

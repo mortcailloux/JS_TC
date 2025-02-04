@@ -1,4 +1,4 @@
-import { askQuestion } from './selection_mot_mystere.mjs';
+import { askQuestion } from './justone.mjs';
 
 export async function reponse(indices,i){
     console.log("A toi de deviner ",noms[i]," :");
