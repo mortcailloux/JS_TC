@@ -1,5 +1,6 @@
 import { demander_indices } from './choix_des_indices.mjs';
 import { reponse } from './reponse.mjs';
+import { supprime_doublons } from './comparaison_des_indices.mjs';
 import readline from 'readline';
 
 const rl = readline.createInterface({
@@ -41,9 +42,15 @@ async function main() {
     let nom_tire=noms[int_aleatoire]
     console.log("%s est le nom choisi",nom_tire)
     //selection du mot mystère
-    let indices= await demander_indices("abeille",int_aleatoire,noms);
+    let mot="abeille";
+    let indices= supprime_doublons(await demander_indices(mot,int_aleatoire,noms));
     let rep = await reponse(indices,int_aleatoire,noms);
-    console.log(rep);
+    if (rep==mot){
+        console.log("Bravo t'es trop fort(e)!");
+    }
+    else{
+        console.log("C'etait pas ca non...");
+    }
 
     rl.close();
 }
