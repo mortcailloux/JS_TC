@@ -5,6 +5,7 @@ import readline from 'readline';
 import { selection } from './selection_mot_mystere.mjs';
 
 var nb_joueurs=5;
+var nb_tours=1;
 
 const rl = readline.createInterface({
         input: process.stdin,
@@ -56,8 +57,11 @@ async function main() {
     console.log('float aleatoire: %d', float_aleatoire )
     let i_joueur_actif=Math.floor(float_aleatoire) //fonction floor des maths, renvoie le plus grand entier inférieur
     console.log("int aleatoire %d",i_joueur_actif) //fonction floor des maths, renvoie le plus grand entier inférieur
-    score+=await tour(i_joueur_actif,noms);
-
+    for (let i=0; i<nb_tours; i++){
+        score+=await tour(i_joueur_actif,noms);
+        i_joueur_actif=(i_joueur_actif+1)%5;
+    }
+    console.log(score);
     rl.close();
 }
 
