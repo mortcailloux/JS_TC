@@ -3,6 +3,8 @@ import { reponse } from './reponse.mjs';
 import { supprime_doublons } from './comparaison_des_indices.mjs';
 import readline from 'readline';
 
+var nb_joueurs=5;
+
 const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout
@@ -29,13 +31,12 @@ export function askQuestion(question) {
 // Fonction principale
 async function main() {
     let noms=[]
-    for (let i=0; i<5;i++){
+    for (let i=0; i<nb_joueurs;i++){
         let nom=await askQuestion(`Quel est le nom du joueur ${i+1} ?`) //f string ici
         noms.push(nom)
-
     }
-    
-    let float_aleatoire=Math.random()*5 //nombre aléatoire entre 0 et 5
+
+    let float_aleatoire=Math.random()*nb_joueurs //nombre aléatoire entre 0 et 5
     console.log('float aleatoire: %d', float_aleatoire )
     let int_aleatoire=Math.floor(float_aleatoire) //fonction floor des maths, renvoie le plus grand entier inférieur
     console.log("int aleatoire %d",int_aleatoire)
@@ -44,8 +45,8 @@ async function main() {
     //selection du mot mystère
     let mot="abeille";
     let indices= supprime_doublons(await demander_indices(mot,int_aleatoire,noms));
-    let rep = await reponse(indices,int_aleatoire,noms);
-    if (rep==mot){
+    let rep = (await reponse(indices,int_aleatoire,noms)).toLowerCase();
+    if (rep===mot){
         console.log("Bravo t'es trop fort(e)!");
     }
     else{
