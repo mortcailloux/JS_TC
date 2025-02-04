@@ -7,7 +7,7 @@ import { commentaire } from './commentaire_score.mjs';
 
 
 var nb_joueurs=5;
-var nb_tours=1;
+const nb_tours=1;
 
 const rl = readline.createInterface({
         input: process.stdin,
