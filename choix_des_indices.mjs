@@ -1,7 +1,6 @@
 import { askQuestion } from './justone.mjs';
 
 export async function demander_indices(mot,indice,noms){
-    
     let indices=[];
     for (let i=0; i<noms.length;i++){
         if (i!=indice){
