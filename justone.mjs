@@ -1,8 +1,10 @@
+import readline from 'readline';
 import { demander_indices } from './choix_des_indices.mjs';
 import { reponse } from './reponse.mjs';
 import { verification } from './comparaison_des_indices.mjs';
-import readline from 'readline';
 import { selection } from './selection_mot_mystere.mjs';
+import { commentaire } from './commentaire_score.mjs';
+
 
 var nb_joueurs=5;
 var nb_tours=1;
@@ -61,7 +63,7 @@ async function main() {
         score+=await tour(i_joueur_actif,noms);
         i_joueur_actif=(i_joueur_actif+1)%5;
     }
-    console.log(score);
+    console.log(commentaire(score));
     rl.close();
 }
 
