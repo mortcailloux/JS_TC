@@ -47,8 +47,8 @@ async function main() {
     console.log("%s est le nom choisi",nom_tire)
     //selection du mot mystère
     let mot=await selection(i_joueur_actif,noms);
-    let indices= supprime_doublons(await demander_indices(mot,int_aleatoire,noms));
-    let rep = (await reponse(indices,int_aleatoire,noms)).toLowerCase();
+    let indices= supprime_doublons(await demander_indices(mot,i_joueur_actif,noms));
+    let rep = (await reponse(indices,i_joueur_actif,noms)).toLowerCase();
     if (rep===mot){
         console.log("Bravo t'es trop fort(e)!");
     }
