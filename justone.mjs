@@ -1,7 +1,7 @@
 import { demander_indices } from './choix_des_indices.mjs';
 import { reponse } from './reponse.mjs';
 import readline from 'readline';
-
+import { selection } from './selection_mot_mystere.mjs';
 const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout
@@ -36,14 +36,17 @@ async function main() {
     
     let float_aleatoire=Math.random()*5 //nombre aléatoire entre 0 et 5
     console.log('float aleatoire: %d', float_aleatoire )
-    let int_aleatoire=Math.floor(float_aleatoire) //fonction floor des maths, renvoie le plus grand entier inférieur
-    console.log("int aleatoire %d",int_aleatoire)
-    let nom_tire=noms[int_aleatoire]
+    let i_joueur_actif=Math.floor(float_aleatoire) //fonction floor des maths, renvoie le plus grand entier inférieur
+    console.log("int aleatoire %d",     i_joueur_actif=Math.floor(float_aleatoire) //fonction floor des maths, renvoie le plus grand entier inférieur
+)
+    let nom_tire=noms[     i_joueur_actif=Math.floor(float_aleatoire) //fonction floor des maths, renvoie le plus grand entier inférieur
+    ]
     console.log("%s est le nom choisi",nom_tire)
     //selection du mot mystère
-    let indices= await demander_indices("abeille",int_aleatoire,noms);
+    let mot_mystere=await selection(i_joueur_actif,noms[i_joueur_actif])
+    let indices= await demander_indices("abeille",i_joueur_actif,noms);
     console.log(indices);
-    rep = await reponse(indices,int_aleatoire,noms);
+    rep = await reponse(indices,i_joueur_actif,noms);
     console.log(rep);
 
     rl.close();

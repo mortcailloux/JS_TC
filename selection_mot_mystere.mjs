@@ -1,6 +1,6 @@
 
 import fs from "fs/promises"
-
+import { askQuestion } from "./justone.mjs"
 /**
  * Il faut absolument qu'on ait un compteur de carte à l'extérieur de la fonction pour ne pas générer trop de cartes
  * @returns liste de 5 mots générés pour la carte
@@ -25,9 +25,20 @@ async function mot_aleatoires(){
 
 }
 
-async function joueur_actif_choisit_nombre(mots){ 
-    console.log("Choisissez le mot que vous voudrez faire deviner, 1 premier mot, 5 dernier mot")
-    console.log(mots)
+function affiche_mots(mots){
+    let len=mots.length
+    for (let i=0;i<len;i++){
+        console.log("Mot %d : %s",i+1,mots[i])
+
+
+    }
+
+
+}
+
+async function joueur_actif_choisit_nombre(mots,nom){ 
+    console.log("%s choisissez le mot que vous voudrez faire deviner, 1 premier mot, 5 dernier mot, vous ne pouvez pas voir les mots",nom)
+    
     let rep=await askQuestion("")
     let i = parseInt(rep) // pour ne pas avoir de mauvaises surprises
     i-=1
@@ -35,12 +46,12 @@ async function joueur_actif_choisit_nombre(mots){
 
 }
 
-async function joueur_connait_mot(i_joueur,mot){
-    let rep=await askQuestion(`Joueur ${i_joueur}, connais tu le mot ${mot} ? (réponds oui/non)`)
+async function joueur_connait_mot(mot,nom){
+    let rep=await askQuestion(`${nom}, connais tu le mot ${mot} ? (réponds oui/non)`)
     rep=rep.toLowerCase()
     while (rep!="oui" && rep!="non"){
         console.log("réponse invalide, veuillez recommencer")
-        rep=await askQuestion(`Joueur ${i_joueur}, connais tu le mot ${mot} ? (réponds oui/non)`)
+        rep=await askQuestion(`${nom}, connais tu le mot ${mot} ? (réponds oui/non)`)
         rep=rep.toLowerCase()
 
     }
@@ -50,20 +61,26 @@ async function joueur_connait_mot(i_joueur,mot){
 
 }
 
-async function selection(i_joueur_actif) {
+export async function selection(i_joueur_actif,noms) {
     const carte=await mot_aleatoires()
     let joueur_contents=false
+    let mot_choisi
+    let nom
     while (!joueur_contents){
-        mot_choisi=await joueur_actif_choisit_nombre(carte)
+        mot_choisi=await joueur_actif_choisit_nombre(carte,noms)
         //chaque joueur va dire s'il connait le mot
-        joueur_contents=True
-        for (i=0;i<5;i++){
+        joueur_contents=true
+        for (let i=0;i<5;i++){
             if (i==i_joueur_actif){
                 continue //on ne pose pas la question au joueur actif
             }
-            joueur_contents=joueur_contents && joueur_connait_mot(i,mot_choisi) //joueur_contents passe à faux si l'un des joueurs veut changer de mot
+            nom=noms[i]
+            console.log(noms)
+            console.log(nom)
+            joueur_contents=joueur_contents && await joueur_connait_mot(mot_choisi,nom) //joueur_contents passe à faux si l'un des joueurs veut changer de mot
 
         }
+    
     }
     //un mot convenant à tous a été choisi
 
