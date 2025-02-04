@@ -75,8 +75,7 @@ export async function selection(i_joueur_actif,noms) {
                 continue //on ne pose pas la question au joueur actif
             }
             nom=noms[i]
-            console.log(noms)
-            console.log(nom)
+
             joueur_contents=joueur_contents && await joueur_connait_mot(mot_choisi,nom) //joueur_contents passe à faux si l'un des joueurs veut changer de mot
 
         }
