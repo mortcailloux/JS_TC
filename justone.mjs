@@ -1,6 +1,6 @@
 import { demander_indices } from './choix_des_indices.mjs';
 import { reponse } from './reponse.mjs';
-import { supprime_doublons } from './comparaison_des_indices.mjs';
+import { verification } from './comparaison_des_indices.mjs';
 import readline from 'readline';
 import { selection } from './selection_mot_mystere.mjs';
 
@@ -29,8 +29,8 @@ export function askQuestion(question) {
 async function tour(i_joueur_actif,noms) {
     console.log("%s est le nom choisi",noms[i_joueur_actif])
     //selection du mot mystère
-    let mot=await selection(i_joueur_actif,noms[i_joueur_actif]);
-    let indices= supprime_doublons(await demander_indices(mot,i_joueur_actif,noms));
+    let mot=await selection(i_joueur_actif,noms);
+    let indices= verification(await demander_indices(mot,i_joueur_actif,noms));
     let rep = (await reponse(indices,i_joueur_actif,noms)).toLowerCase();
     if (rep===mot){
         console.log("Bravo t'es trop fort(e)!");

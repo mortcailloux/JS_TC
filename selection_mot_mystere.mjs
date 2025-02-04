@@ -70,7 +70,7 @@ export async function selection(i_joueur_actif,noms) {
         mot_choisi=await joueur_actif_choisit_nombre(carte,noms[i_joueur_actif])
         //chaque joueur va dire s'il connait le mot
         joueur_contents=true
-        for (let i=0;i<5;i++){
+        for (let i=0;i<noms.length;i++){
             if (i==i_joueur_actif){
                 continue //on ne pose pas la question au joueur actif
             }
@@ -88,4 +88,3 @@ export async function selection(i_joueur_actif,noms) {
     
 }
 
-console.log(await mot_aleatoires())
