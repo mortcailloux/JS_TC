@@ -17,8 +17,8 @@ const rl = readline.createInterface({
 export function askQuestion(question) {
     
     return new Promise((resolve) => {
-        rl.question(question + " ", (answer) => {
-            resolve(answer);
+        rl.question(question + " ", (answer) => { //a refaire, possible sans promesse mais avec fonction async, pour promise on a .zen, await pour async
+            resolve(answer);    //inutile?
         });
     });
 }
@@ -60,9 +60,11 @@ async function main() {
     let i_joueur_actif=Math.floor(float_aleatoire) //fonction floor des maths, renvoie le plus grand entier inférieur
     console.log("int aleatoire %d",i_joueur_actif) //fonction floor des maths, renvoie le plus grand entier inférieur
     for (let i=0; i<nb_tours; i++){
+        console.log("Tour suivant!")
         score+=await tour(i_joueur_actif,noms);
         i_joueur_actif=(i_joueur_actif+1)%5;
     }
+    console.log("La partie est finie :(")
     console.log(commentaire(score));
     rl.close();
 }
