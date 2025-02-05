@@ -55,9 +55,7 @@ async function main() {
     }
 
     let float_aleatoire=Math.random()*nb_joueurs; //nombre aléatoire entre 0 et 5
-    console.log('float aleatoire: %d', float_aleatoire )
     let i_joueur_actif=Math.floor(float_aleatoire) //fonction floor des maths, renvoie le plus grand entier inférieur
-    console.log("int aleatoire %d",i_joueur_actif) //fonction floor des maths, renvoie le plus grand entier inférieur
     for (let i=0; i<nb_tours; i++){
         console.log("Nouveau tour!")
         score+=await tour(i_joueur_actif,noms);
