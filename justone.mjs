@@ -5,7 +5,6 @@ import { verification } from './comparaison_des_indices.mjs';
 import { selection } from './selection_mot_mystere.mjs';
 import { commentaire } from './commentaire_score.mjs';
 
-
 var nb_joueurs=5;
 const nb_tours=1;
 
@@ -14,11 +13,11 @@ const rl = readline.createInterface({
         output: process.stdout
     });
 
-export function askQuestion(question) {
-    
+export async function askQuestion(question) {
     return new Promise((resolve) => {
-        rl.question(question + " ", (answer) => { //a refaire, possible sans promesse mais avec fonction async, pour promise on a .zen, await pour async
-            resolve(answer);    //inutile?
+        rl.question(question + " ", (answer) => {
+            resolve(answer);
+            console.clear(); // Efface l'écran après chaque question (optionnel)
         });
     });
 }
@@ -32,7 +31,7 @@ export function askQuestion(question) {
 async function tour(i_joueur_actif,noms) {
     console.log("%s est le nom choisi",noms[i_joueur_actif])
     //selection du mot mystère
-    let mot=await selection(i_joueur_actif,noms);
+    let mot=(await selection(i_joueur_actif,noms));
     let indices= await verification(await demander_indices(mot,i_joueur_actif,noms));
     let rep = (await reponse(indices,i_joueur_actif,noms)).toLowerCase();
     if (rep.toUpperCase()===mot){
@@ -60,7 +59,7 @@ async function main() {
     let i_joueur_actif=Math.floor(float_aleatoire) //fonction floor des maths, renvoie le plus grand entier inférieur
     console.log("int aleatoire %d",i_joueur_actif) //fonction floor des maths, renvoie le plus grand entier inférieur
     for (let i=0; i<nb_tours; i++){
-        console.log("Tour suivant!")
+        console.log("Nouveau tour!")
         score+=await tour(i_joueur_actif,noms);
         i_joueur_actif=(i_joueur_actif+1)%5;
     }
