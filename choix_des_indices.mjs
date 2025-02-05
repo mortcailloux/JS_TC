@@ -5,7 +5,11 @@ export async function demander_indices(mot,indice,noms){
     for (let i=0; i<noms.length;i++){
         if (i!=indice){
             console.log("A toi ", noms[i]);
-            indices.push((await askQuestion("Donnez un indice pour le mot " +mot+ " :")).toLowerCase());    //la lecture du mot marche pas
+            indice=await askQuestion("Donnez un indice pour le mot " +mot+ " :")
+            indice=indice.toLowerCase()
+            if (indice.toUpperCase()!=mot){
+                indices.push(indice);//on n'ajoute pas le mot si c'est exactement le même que celui donné
+            }//la lecture du mot marche pas
         }
     }
     return indices;

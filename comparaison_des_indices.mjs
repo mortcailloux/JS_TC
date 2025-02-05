@@ -6,12 +6,40 @@ function removeAccents(str) {
 }
 
 function supprime_doublons(indices){
-    indices.map((x) => x.trim())
-    let tri = new Set(indices);
-    indices=Array.from(tri);
-    return indices;
-}
+    let suppr=false
+    let liste_doublons=[]
+    let mot1
+    let mot2
+    let temp_suppr
+    for (let i=0;i<indices.length;i++){
+        mot1=indices[i]
+        temp_suppr=false
+        for (let j=0;j<indices.length;j++){
+            if (i==j){
+                continue //on évite de comparer le mot à lui même, ça causerait des bugs
+            }
+            mot2=indices[j]
+            temp_suppr=mot1.toUpperCase()==mot2.toUpperCase()
+            suppr=suppr || temp_suppr
+            if (!liste_doublons.includes(mot1) && temp_suppr){ // en fait j'aurais probablement pu slice la liste au dessus et utiliser cette méthode pour vérifier s'il y avait un doublon
+                liste_doublons.push(mot1)
+                break
+            }
+            
 
+        }
+    }
+
+    if (suppr){
+        let mot_a_filtrer
+        for (let i=0;i<liste_doublons.length;i++){
+            mot_a_filtrer=liste_doublons[i]
+            indices=indices.filter(x => x!=mot_a_filtrer)
+        }
+
+    }
+    return indices
+}
 
 export async function verification(indices){
     indices=supprime_doublons(indices)
