@@ -1,0 +1,10 @@
+{
+    "name": "juste-one-javascript",
+    "version": "1.0.0",
+    "type": "module",
+    "main": "justone.mjs",
+    "scripts": {
+      "start": "node justone.mjs"
+    },
+    "dependencies": {}
+  }
