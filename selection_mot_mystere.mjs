@@ -17,7 +17,7 @@ async function mot_aleatoires(){
     const retour=[]
     for (let i=0; i<5;i++){
         let int_aleatoire=Math.floor(Math.random()*donnees.length)
-        let mot=donnees[int_aleatoire]
+        let mot=(donnees[int_aleatoire]).toLowerCase()
         retour.push(mot)
     }
     return retour
@@ -53,12 +53,8 @@ async function joueur_connait_mot(mot,nom){
         console.log("réponse invalide, veuillez recommencer")
         rep=await askQuestion(`${nom}, connais tu le mot ${mot} ? (réponds oui/non)`)
         rep=rep.toLowerCase()
-
     }
-    
     return rep=="oui"
-
-
 }
 
 export async function selection(i_joueur_actif,noms) {
@@ -75,16 +71,10 @@ export async function selection(i_joueur_actif,noms) {
                 continue //on ne pose pas la question au joueur actif
             }
             nom=noms[i]
-
             joueur_contents=joueur_contents && await joueur_connait_mot(mot_choisi,nom) //joueur_contents passe à faux si l'un des joueurs veut changer de mot
-
         }
-    
     }
     //un mot convenant à tous a été choisi
-
     return mot_choisi
-
-    
 }
 
