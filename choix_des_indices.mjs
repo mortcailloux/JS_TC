@@ -1,9 +1,10 @@
 import { askQuestion } from './justone.mjs';
 
-export async function demander_indices(mot,indice,noms){
+export async function demander_indices(mot,indice_prio,noms){
     let indices=[];
+    let indice
     for (let i=0; i<noms.length;i++){
-        if (i!=indice){
+        if (i!=indice_prio){ //patch
             console.log("A toi ", noms[i]);
             indice=await askQuestion("Donnez un indice pour le mot " +mot+ " :")
             indice=indice.toLowerCase()

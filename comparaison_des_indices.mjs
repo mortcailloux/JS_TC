@@ -1,6 +1,6 @@
 import fs from "fs/promises"
 
-function removeAccents(str) {
+export function removeAccents(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); //séparation des lettres et des accents avec normalize
     //supprime ensuite les accents avec leur plage unicode en les remplaçant par ""
 }
@@ -19,7 +19,7 @@ function supprime_doublons(indices){
                 continue //on évite de comparer le mot à lui même, ça causerait des bugs
             }
             mot2=indices[j]
-            temp_suppr=mot1.toUpperCase()==mot2.toUpperCase()
+            temp_suppr=removeAccents(mot1).toUpperCase()==removeAccents(mot2).toUpperCase()
             suppr=suppr || temp_suppr
             if (!liste_doublons.includes(mot1) && temp_suppr){ // en fait j'aurais probablement pu slice la liste au dessus et utiliser cette méthode pour vérifier s'il y avait un doublon
                 liste_doublons.push(mot1)
