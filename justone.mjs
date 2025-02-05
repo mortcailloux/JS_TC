@@ -4,7 +4,7 @@ import { reponse } from './reponse.mjs';
 import { verification } from './comparaison_des_indices.mjs';
 import { selection } from './selection_mot_mystere.mjs';
 import { commentaire } from './commentaire_score.mjs';
-
+import { removeAccents } from './comparaison_des_indices.mjs';
 var nb_joueurs=5;
 const nb_tours=1;
 
@@ -34,7 +34,7 @@ async function tour(i_joueur_actif,noms) {
     let mot=(await selection(i_joueur_actif,noms));
     let indices= await verification(await demander_indices(mot,i_joueur_actif,noms));
     let rep = (await reponse(indices,i_joueur_actif,noms)).toLowerCase();
-    if (rep.toUpperCase()===mot){
+    if (removeAccents(rep).toUpperCase()===mot){
         console.log("Bravo t'es trop fort(e)!");
         return 1;
     }
