@@ -7,7 +7,7 @@ import { commentaire } from './commentaire_score.mjs';
 
 
 var nb_joueurs=5;
-var nb_tours=1;
+const nb_tours=1;
 
 const rl = readline.createInterface({
         input: process.stdin,
@@ -33,9 +33,9 @@ async function tour(i_joueur_actif,noms) {
     console.log("%s est le nom choisi",noms[i_joueur_actif])
     //selection du mot mystère
     let mot=await selection(i_joueur_actif,noms);
-    let indices= verification(await demander_indices(mot,i_joueur_actif,noms));
+    let indices= await verification(await demander_indices(mot,i_joueur_actif,noms));
     let rep = (await reponse(indices,i_joueur_actif,noms)).toLowerCase();
-    if (rep===mot){
+    if (rep.toUpperCase()===mot){
         console.log("Bravo t'es trop fort(e)!");
         return 1;
     }
