@@ -38,12 +38,16 @@ function affiche_mots(mots){
 
 async function joueur_actif_choisit_nombre(mots,nom){ 
     console.log("%s choisissez le mot que vous voudrez faire deviner, 1 premier mot, 5 dernier mot, vous ne pouvez pas voir les mots",nom)
-    
-    let rep=await askQuestion("")
-    let i = parseInt(rep) // pour ne pas avoir de mauvaises surprises
-    i-=1
-    return mots[i]
+    while (true) {
+        let rep = await askQuestion("");
+        let i = parseInt(rep); // pour ne pas avoir de mauvaises surprises
 
+        if (!isNaN(i) && i >= 1 && i <= 5) {
+            return mots[i - 1]; // Ajustement pour correspondre à l'index du tableau
+        }
+
+        console.log("Entrée invalide. Veuillez entrer un nombre entre 1 et 5.");
+    }
 }
 
 async function joueur_connait_mot(mot,nom){
