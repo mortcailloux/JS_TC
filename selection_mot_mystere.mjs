@@ -12,7 +12,7 @@ async function mot_aleatoires(){
     
 //il faut lire depuis un fichier
     const data= await fs.readFile("pli07.txt",'utf8') //sans le const ça fonctionnait pas
-    const donnees=data.split("\n")
+    const donnees=data.split("\r\n")
 
     const retour=[]
     for (let i=0; i<5;i++){

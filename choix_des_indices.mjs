@@ -8,7 +8,7 @@ export async function demander_indices(mot,indice_prio,noms){
             console.log("A toi ", noms[i]);
             indice=await askQuestion("Donnez un indice pour le mot " +mot+ " :")
             indice=indice.toLowerCase()
-            if (indice.toUpperCase()!=mot){
+            if (indice.toUpperCase()!=mot.toUpperCase()){
                 indices.push(indice);//on n'ajoute pas le mot si c'est exactement le même que celui donné
             }//la lecture du mot marche pas
         }
