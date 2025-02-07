@@ -6,5 +6,7 @@
     "scripts": {
       "start": "node justone.mjs"
     },
-    "dependencies": {}
+    "dependencies": {},
+    "author":"Anaïs Boisson, Charles Bouquet"
+    
   }
