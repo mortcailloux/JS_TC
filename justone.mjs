@@ -28,12 +28,12 @@ export async function askQuestion(question) {
 //on récupérera les fonctions dans les fichiers correspondants
 
 
-async function tour(i_joueur_actif,noms) {
+async function tour(i_joueur_actif,noms,cartes) {
     var rep
     var repondre
     console.log("%s est le nom choisi",noms[i_joueur_actif])
     //selection du mot mystère
-    let carte = cartes.pop()
+    let carte = cartes.shift()
     let mot=(await selection(i_joueur_actif,noms,carte));
     let indices= await verification(await demander_indices(mot,i_joueur_actif,noms));
     [rep,repondre] = (await reponse(indices,i_joueur_actif,noms));
@@ -42,17 +42,19 @@ async function tour(i_joueur_actif,noms) {
     if (repondre) {
         if (removeAccents(rep).toUpperCase()===mot.toUpperCase()){ //pour être sûr qu'il n'y ait jamais de crash
             console.log("Bravo t'es trop fort(e)!");
-            return [1,-1];
+            return [1,cartes];
         }
         else{
             console.log("C'etait pas ca non...");
-            return [0,-2];
+            cartes.pop()
+            return [0,cartes];
         }
     }
-    else {
-        return [0,0]
+    else{
+        cartes.push(carte);
+        console.log("La carte est remise dans la pile")
+        return [0,cartes];
     }
-    
 }
 
 async function demande_nom(i) {
@@ -68,7 +70,7 @@ async function demande_nom(i) {
 async function main() {
     let score=0;
     let noms=[];
-    
+    let cartes=await gen_cartes(nb_cartes);
     console.log("Bienvenue dans cette partie de Just One ! Vous devez être 5 joueurs. L'un d'entre vous sera le joueur actif et devra deviner un mot mystère, tandis que les 4 autres devront l'aider en proposant chacun un indice. Cependant, si plusieurs joueurs donnent le même indice, celui-ci sera annulé et ne pourra pas être vu par le joueur actif. L'objectif est donc de choisir des indices pertinents tout en évitant les doublons. Le joueur actif n'a qu'une seule tentative pour deviner le mot. Bonne chance et faites preuve de créativité !")
     for (let i=0; i<nb_joueurs;i++){
         let nom=await demande_nom(i) //f string ici
@@ -76,15 +78,13 @@ async function main() {
     }
     let float_aleatoire=Math.random()*nb_joueurs; //nombre aléatoire entre 0 et 5
     let i_joueur_actif=Math.floor(float_aleatoire) //fonction floor des maths, renvoie le plus grand entier inférieur
-    while ( nb_cartes>0){
-        console.log("Nouveau tour!")
-        let retour=await tour(i_joueur_actif,noms);
-        let temp1,temp2
-        [temp1,temp2]=retour;
-        score+=temp1
-        nb_cartes+=temp2
-        i_joueur_actif=(i_joueur_actif+1)%5
-        console.log("il reste %d cartes",nb_cartes);
+    while (cartes.length>0){
+        console.log("Nouveau tour!");
+        let [ajout, cartesRestantes] = await tour(i_joueur_actif, noms, cartes);
+        score+=ajout;
+        cartes = cartesRestantes;  // Met à jour les cartes avec les cartes restantes
+        i_joueur_actif=(i_joueur_actif+1)%nb_joueurs
+        console.log("il reste %d cartes",cartes.length);
     }
     console.log("La partie est finie :(")
     console.log(commentaire(score));
