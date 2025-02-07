@@ -1,7 +1,7 @@
 # projet justone javascript
 
 ### dépendances
-Aucune
+readline
 
 ### lancer le programme:
 il suffit de faire npm start dans le terminal, je vous conseille néanmoins d'aller lire les règles même si un court rappel est effectué au début.
