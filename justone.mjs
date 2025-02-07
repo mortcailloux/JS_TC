@@ -38,7 +38,8 @@ async function tour(i_joueur_actif,noms,cartes) {
     let indices= await verification(await demander_indices(mot,i_joueur_actif,noms));
     [rep,repondre] = (await reponse(indices,i_joueur_actif,noms));
     rep=rep.toLowerCase()
-    console.log("reponse: "+rep)
+    console.log("votre reponse: "+rep.toLowerCase())
+    console.log("la réponse attendue:"+ mot.toLowerCase())
     if (repondre) {
         if (removeAccents(rep).toUpperCase()===mot.toUpperCase()){ //pour être sûr qu'il n'y ait jamais de crash
             console.log("Bravo t'es trop fort(e)!");
