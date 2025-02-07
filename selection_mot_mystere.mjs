@@ -34,16 +34,6 @@ export async function gen_cartes(nb_cartes){
     return cartes;
 }
 
-function affiche_mots(mots){
-    let len=mots.length
-    for (let i=0;i<len;i++){
-        console.log("Mot %d : %s",i+1,mots[i])
-
-
-    }
-
-
-}
 
 async function joueur_actif_choisit_nombre(mots,nom){ 
     console.log("%s choisissez le mot que vous voudrez faire deviner, 1 premier mot, 5 dernier mot, vous ne pouvez pas voir les mots",nom)
