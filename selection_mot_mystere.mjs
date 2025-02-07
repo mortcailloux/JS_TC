@@ -8,21 +8,30 @@ import { askQuestion } from "./justone.mjs"
  * 
  * 
  */
-async function mot_aleatoires(){
+async function mot_aleatoires(nb_cartes){
     
 //il faut lire depuis un fichier
     const data= await fs.readFile("pli07.txt",'utf8') //sans le const ça fonctionnait pas
-    const donnees=data.split("\n")
+    const donnees=data.split("\n").map(mot => mot.trim());
 
-    const retour=[]
-    for (let i=0; i<5;i++){
-        let int_aleatoire=Math.floor(Math.random()*donnees.length)
-        let mot=(donnees[int_aleatoire]).toLowerCase()
-        retour.push(mot)
+    const motsSelectionnes = new Set();
+    while (motsSelectionnes.size < (nb_cartes*5)) {
+        let mot = donnees[Math.floor(Math.random() * donnees.length)];
+        motsSelectionnes.add(mot);
     }
-    return retour
+    return Array.from(motsSelectionnes); //converti le set en array
+}
 
-
+export async function gen_cartes(nb_cartes){
+    let mots=await mot_aleatoires(nb_cartes);
+    let cartes=[]
+    for (let i=0; i<nb_cartes; i++){
+        cartes[i]=[]
+        for (let j=0; j<5; j++){
+            cartes[i][j]=mots.pop();
+        }
+    }
+    return cartes;
 }
 
 function affiche_mots(mots){
@@ -61,8 +70,7 @@ async function joueur_connait_mot(mot,nom){
     return rep=="oui"
 }
 
-export async function selection(i_joueur_actif,noms) {
-    const carte=await mot_aleatoires()
+export async function selection(i_joueur_actif,noms,carte) {
     let joueur_contents=false
     let mot_choisi
     let nom
