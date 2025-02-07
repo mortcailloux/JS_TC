@@ -58,7 +58,7 @@ function mot_langue_francaise(indice,mots_langue_francaise){
 
 async function tri_francais(indices) {
     const data= await fs.readFile("pli07.txt",'utf8') 
-    const donnees=data.split("\r\n")
+    const donnees=data.split("/\r?\n/")
     const mots_langue_francaise = new Set(donnees); // Création du Set des mots
 
     return indices.filter(indice => mot_langue_francaise(indice, mots_langue_francaise));
