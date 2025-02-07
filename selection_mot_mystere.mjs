@@ -11,7 +11,7 @@ import { askQuestion } from "./justone.mjs"
 async function mot_aleatoires(nb_cartes){
     
 //il faut lire depuis un fichier
-    const data= await fs.readFile("pli07.txt",'utf8') //sans le const ça fonctionnait pas
+    const data= await fs.readFile("dico.txt",'utf8') //sans le const ça fonctionnait pas
     const donnees=data.split("\r\n").map(mot => mot.trim());
 
     const motsSelectionnes = new Set();
