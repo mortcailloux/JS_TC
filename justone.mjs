@@ -47,7 +47,9 @@ async function tour(i_joueur_actif,noms,cartes) {
         }
         else{
             console.log("C'etait pas ca non...");
-            cartes.shift()
+            if (cartes.length>0){
+               cartes.shift()
+            }
             return [0,cartes];
         }
     }
